@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\ContosoApiApp3.props" />
+</Project>

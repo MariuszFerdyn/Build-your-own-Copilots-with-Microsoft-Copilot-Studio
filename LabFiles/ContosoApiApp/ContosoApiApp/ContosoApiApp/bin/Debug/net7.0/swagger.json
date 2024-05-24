@@ -1,0 +1,170 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "ContosoApiApp3_Connector_4",
+    "version": "1.0"
+  },
+  "paths": {
+    "/Order": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Get Order Details",
+        "description": "Get the details of an order, including the contents of the order, the total value of the order (plus the tax and pre tax values), and the status of the order, including shipping and delivery dates.",
+        "operationId": "GetOrderDetails",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "orderNumber",
+            "description": "The order number / reference.",
+            "required": true,
+            "type": "string",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Item": {
+      "type": "object",
+      "properties": {
+        "itemId": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "quantity": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "unitPrice": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "orderNumber": {
+          "type": "string"
+        },
+        "orderDetails": {
+          "$ref": "#/definitions/OrderDetails"
+        },
+        "orderStatus": {
+          "$ref": "#/definitions/OrderStatus"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OrderDetails": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        },
+        "totalValue": {
+          "$ref": "#/definitions/TotalValue"
+        },
+        "orderDate": {
+          "type": "string"
+        },
+        "shippingAddress": {
+          "$ref": "#/definitions/ShippingAddress"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OrderStatus": {
+      "type": "object",
+      "properties": {
+        "currentStatus": {
+          "type": "string"
+        },
+        "shipmentDetails": {
+          "$ref": "#/definitions/ShipmentDetails"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ShipmentDetails": {
+      "type": "object",
+      "properties": {
+        "shippedDate": {
+          "type": "string"
+        },
+        "estimatedDeliveryDate": {
+          "type": "string"
+        },
+        "shippingMethod": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ShippingAddress": {
+      "type": "object",
+      "properties": {
+        "street": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TotalValue": {
+      "type": "object",
+      "properties": {
+        "subtotal": {
+          "format": "double",
+          "type": "number"
+        },
+        "tax": {
+          "format": "double",
+          "type": "number"
+        },
+        "totalIncludingTax": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "host": "ss2wm8vn-7189.uks1.devtunnels.ms",
+  "schemes": [
+    "https"
+  ]
+}
